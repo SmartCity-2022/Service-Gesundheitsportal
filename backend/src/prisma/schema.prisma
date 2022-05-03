@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model appointment {
+  appointment_id Int      @id
+  date           DateTime @db.DateTime(0)
+  status         Boolean
+  clinic_id      Int
+  user_id        Int
+  clinic         clinic   @relation(fields: [clinic_id], references: [clinic_id], onDelete: NoAction, onUpdate: NoAction, map: "appointment_ibfk_1")
+  user           user     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "appointment_ibfk_2")
+
+  @@index([clinic_id], map: "clinic_id")
+  @@index([user_id], map: "user_id")
+}
+
+model clinic {
+  clinic_id    Int           @id
+  title        String        @db.VarChar(25)
+  street       String        @db.VarChar(25)
+  phone_number String        @db.VarChar(25)
+  house_number Int
+  opening_time DateTime      @db.Time(0)
+  closing_time DateTime      @db.Time(0)
+  appointment  appointment[]
+}
+
+model hospital {
+  hospital_id  Int    @id
+  title        String @db.VarChar(25)
+  street       String @db.VarChar(25)
+  phone_number String @db.VarChar(25)
+  house_number Int
+  employees    Int
+}
+
+model inventory {
+  inventory_id Int      @id
+  medicine_id  Int
+  order_id     Int
+  medicine     medicine @relation(fields: [medicine_id], references: [medicine_id], onDelete: NoAction, onUpdate: NoAction, map: "inventory_ibfk_1")
+  order        order    @relation(fields: [order_id], references: [order_id], onDelete: NoAction, onUpdate: NoAction, map: "inventory_ibfk_2")
+
+  @@index([medicine_id], map: "medicine_id")
+  @@index([order_id], map: "order_id")
+}
+
+model medicine {
+  medicine_id   Int         @id
+  title         String      @db.VarChar(25)
+  content       Int
+  pharmacy_duty Boolean
+  effect        String      @db.VarChar(255)
+  inventory     inventory[]
+}
+
+model order {
+  order_id      Int         @id
+  order_date    DateTime    @db.Date
+  delivery_date DateTime    @db.Date
+  user_id       Int
+  user          user        @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "order_ibfk_1")
+  inventory     inventory[]
+
+  @@index([user_id], map: "user_id")
+}
+
+model user {
+  user_id      Int           @id
+  street       String        @db.VarChar(25)
+  house_number Int
+  appointment  appointment[]
+  order        order[]
+}
