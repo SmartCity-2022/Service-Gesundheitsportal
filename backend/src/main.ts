@@ -1,8 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import * as dotenv from "dotenv";
+
 
 async function bootstrap() {
+
+  dotenv.config({ path: __dirname + "/.env" });
+
   const app = await NestFactory.create(AppModule, { cors: true });
 
   const options = new DocumentBuilder()
@@ -15,7 +20,9 @@ async function bootstrap() {
   SwaggerModule.setup('/docs', app, document);
 
   await app.listen(8080);
-  console.log("Backend launched:      " + "http://localhost:8080/docs")
+  console.log("[Nest] Api   - " + "http://localhost:8080/docs")
+  
 }
+
 
 bootstrap();

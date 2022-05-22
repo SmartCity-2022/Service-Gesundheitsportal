@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import './App.css';
+import Navbar from './components/Navbar';
 
 function App() {
 
@@ -8,24 +8,23 @@ function App() {
 
     useEffect(() => { fetchUser() }, [])
 
+    const id = 1;
+
     const fetchUser = () => {
-        axios.get("http://localhost:8080/test").then(response => setUser(response.data))
+        axios.get("http://localhost:8080/clinic/" + id).then(response => setUser(response.data))
     }
 
     return (
-    <div className="App">
-        <header className="App-header">
-            { user.map((data) => {
-                return (
-                <>
-                    <p><code> User-ID: { data.user_id } </code></p>
-                    <p><code> User-Straße: { data.street } </code></p>
-                    <p><code> User-Hausnummer: { data.house_number } </code></p>
-                </>
-                )
-            })}
-        </header>
-    </div>
+    <>
+        <Navbar />
+        <header className="w-10 h-10 bg-slate-600">
+            <>
+                <code> ID:         { user.clinic_id } </code>
+                <code> Straße:     { user.street } </code>
+                <code> Hausnummer: { user.opening_time } </code>
+            </>
+        </header>    
+    </>
     );
 }
 
