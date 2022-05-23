@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model appointment {
+  appointment_id Int       @id @default(autoincrement())
+  date           DateTime? @db.DateTime(0)
+  clinic_id      Int?
+  citizen_id     Int?
+  citizen        citizen?  @relation(fields: [citizen_id], references: [citizen_id], onDelete: NoAction, onUpdate: NoAction, map: "appointment_ibfk_2")
+  clinic         clinic?   @relation(fields: [clinic_id], references: [clinic_id], onDelete: NoAction, onUpdate: NoAction, map: "appointment_ibfk_1")
+
+  @@index([citizen_id], map: "citizen_id")
+  @@index([clinic_id], map: "clinic_id")
+}
+
+model clinic {
+  clinic_id    Int           @id @default(autoincrement())
+  title        String?       @db.VarChar(25)
+  street       String?       @db.VarChar(25)
+  phone_number String?       @db.VarChar(25)
+  house_number Int?
+  opening_time DateTime?     @db.Time(0)
+  closing_time DateTime?     @db.Time(0)
+  owner_id     Int?
+  citizen      citizen?      @relation(fields: [owner_id], references: [citizen_id], onDelete: NoAction, onUpdate: NoAction, map: "clinic_ibfk_1")
+  appointment  appointment[]
+
+  @@index([owner_id], map: "owner_id")
+}
+
+model inventory {
+  inventory_id Int       @id @default(autoincrement())
+  medicine_id  Int?
+  order_id     Int?
+  medicine     medicine? @relation(fields: [medicine_id], references: [medicine_id], onDelete: NoAction, onUpdate: NoAction, map: "inventory_ibfk_1")
+  order        order?    @relation(fields: [order_id], references: [order_id], onDelete: NoAction, onUpdate: NoAction, map: "inventory_ibfk_2")
+
+  @@index([medicine_id], map: "medicine_id")
+  @@index([order_id], map: "order_id")
+}
+
+model medicine {
+  medicine_id   Int         @id @default(autoincrement())
+  title         String?     @db.VarChar(25)
+  content       Int?
+  pharmacy_duty Boolean?
+  effect        String?     @db.VarChar(255)
+  inventory     inventory[]
+}
+
+model order {
+  order_id   Int         @id @default(autoincrement())
+  order_date DateTime?   @db.Date
+  citizen_id Int?
+  citizen    citizen?    @relation(fields: [citizen_id], references: [citizen_id], onDelete: NoAction, onUpdate: NoAction, map: "order_ibfk_1")
+  inventory  inventory[]
+
+  @@index([citizen_id], map: "citizen_id")
+}
+
+model citizen {
+  citizen_id   Int           @id @default(autoincrement())
+  email        String?       @unique(map: "email") @db.VarChar(25)
+  street       String?       @db.VarChar(25)
+  house_number Int?
+  appointment  appointment[]
+  clinic       clinic[]
+  order        order[]
+}
