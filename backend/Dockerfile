@@ -25,6 +25,6 @@ COPY --from=build-stage /app/src/prisma/schema.prisma /app/prisma/schema.prisma
 
 ENV NODE_ENV=production
 
-CMD node main.js
+CMD npx prisma generate && node main.js
 
 EXPOSE 80
