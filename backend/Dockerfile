@@ -21,7 +21,7 @@ WORKDIR /app
 
 COPY --from=build-stage /app/node_modules /app/node_modules
 COPY --from=build-stage /app/dist /app/
-COPY --from=build-stage /app/src/prisma/schema.prisma /app/src/prisma/schema.prisma
+COPY --from=build-stage /app/src/prisma/schema.prisma /app/prisma/schema.prisma
 
 ENV NODE_ENV=production
 
