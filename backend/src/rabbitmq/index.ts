@@ -19,7 +19,7 @@ export async function listen(queueName: string, routingKey: any, callback: any) 
         const connection = await getConnection()
         const channel = await connection.createChannel()
   
-        await channel.assertExchange(process.env.EXCHANGE, "topic", {durable: false})
+        await channel.assertExchange(process.env.EXCHANGE, "topic", {durable: true})
   
         const queue = await channel.assertQueue("", {durable: true, exclusive: true})
         await channel.bindQueue(queue.queue, process.env.EXCHANGE, routingKey)
