@@ -11,7 +11,7 @@ function App() {
     const id = 1;
 
     const fetchUser = () => {
-        axios.get("http://localhost:8080/clinic/" + id).then(response => setUser(response.data))
+        axios.get(process.env.REACT_APP_API + "clinic/" + id).then(response => setUser(response.data))
     }
 
     return (

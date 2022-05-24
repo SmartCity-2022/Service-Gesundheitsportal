@@ -18,15 +18,6 @@ export default class CitizenController {
 
     @Post("/")
     async insertCitizen(@Body() citizen: CitizenDTO) {
-
-        var s;
-
-        listen('exchange', 'service.hello', (secrect: any) => {
-            s = secrect; 
-        })
-
-        console.log(s)
-
         return this.citizenService.create(citizen);
     }
 

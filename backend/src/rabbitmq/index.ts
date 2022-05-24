@@ -1,7 +1,7 @@
 let amqp = require('amqplib');
 
 
-const connection = amqp.connect('amqp://localhost:5672', (error0: any, connection: any) => {
+const connection = amqp.connect(process.env.RABBITMQ_URL, (error0: any, connection: any) => {
     if (error0) throw error0;
     return connection;
 });
