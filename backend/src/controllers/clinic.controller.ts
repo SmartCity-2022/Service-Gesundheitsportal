@@ -1,6 +1,6 @@
 import { Body, Param, Get, Put, Post, Delete, Controller, ParseIntPipe } from '@nestjs/common';
-import { ClinicService } from './clinic.service';
-import { ClinicDTO } from './clinic.dto' 
+import { ClinicService } from '../services/clinic.service';
+import { ClinicDTO } from '../models/clinic.dto' 
 import { ApiTags } from '@nestjs/swagger';
 
 
@@ -11,27 +11,27 @@ export default class ClinicController {
     constructor(private readonly clinicService: ClinicService) {}
     
     @Get("/")
-    async getMedicines() {
+    async getClinics() {
         return this.clinicService.get_all();
     }
 
     @Get("/:id")
-    async getMedicine(@Param('id', ParseIntPipe) id: number) {
+    async getClinic(@Param('id', ParseIntPipe) id: number) {
         return this.clinicService.get_unique(id);
     }
 
     @Post("/")
-    async insertMedicine(@Body() clinic: ClinicDTO) {
+    async insertClinic(@Body() clinic: ClinicDTO) {
         return this.clinicService.create(clinic);
     }
 
     @Delete("/:id")
-    async deleteMedicine(@Param('id', ParseIntPipe) id: number) {
+    async deleteClinic(@Param('id', ParseIntPipe) id: number) {
         return this.clinicService.delete(id);
     }
 
     @Put("/:id")
-    async updateMedicine(@Param('id', ParseIntPipe) id: number, @Body() clinic: ClinicDTO) {
+    async updateClinic(@Param('id', ParseIntPipe) id: number, @Body() clinic: ClinicDTO) {
         return this.clinicService.update(id, clinic);
     }
 

@@ -1,14 +1,25 @@
 # Service-Gesundheitsportal
 Microservice Gesundheitsportal
 
-### Backend Database Command
-- cd src
-- npx prisma db push 
+## Installation
+* `npm install`
+* `cd src -> npx prisma db push`
 
-### Backend Variables
-- **DATABASE_URL** = *mysql://root:root@localhost:3306/gesundheitsportal?schema=public*
-- **RABBITMQ_URL** = *amqp://127.0.0.1:5672*
-- **EXCHANGE** = *exchange*
+## Umgebungsvariablen
 
-### Frontend Variables
-- **REACT_APP_API** = *http://localhost:8080/*
+### Backend
+* `DATABASE_URL`: MySQL Addresse zur Verbindung der Datenbank <br>
+Beispiel: `mysql://root:root@localhost:3306/gesundheitsportal?schema=public`
+* `RABBITMQ_URL`: Addresse des RabbitMQ Servers <br>
+Beispiel: `amqp://127.0.0.1:5672`
+* `SERVICE_HELLO`: Bezeichnung des RabbitMQ Events <br>
+Beispiel: `service.hello`
+* `SERVICE_WORLD`: Bezeichnung des RabbitMQ Events <br>
+Beispiel: `service.world`
+* `EXCHANGE`: Bezeichnung des RabbitMQ Exchanges <br>
+Beispiel: `exchange`
+* `SECRET`: Secret zum entschlüsseln eines Token <br>
+
+### Frontend
+* `REACT_APP_API` = Addresse für die Verbindung zum Backend <br>
+Beispiel: `http://localhost:8080`
