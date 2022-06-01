@@ -20,6 +20,7 @@
     "@nestjs/swagger": "^5.2.1",
     "@prisma/client": "^3.13.0",
     "amqplib": "^0.9.1",
+    "axios": "^0.27.2",
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",

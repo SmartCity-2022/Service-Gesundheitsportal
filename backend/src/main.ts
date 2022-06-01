@@ -13,9 +13,6 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule, { cors: true });
     app.use(cookieParser())
 
-    const document = SwaggerModule.createDocument(app, new DocumentBuilder().build());
-    SwaggerModule.setup('/docs', app, document);
-
     await app.listen(8080);
     console.log("[Nest] Api   - " + "http://localhost:8080/docs");
 
