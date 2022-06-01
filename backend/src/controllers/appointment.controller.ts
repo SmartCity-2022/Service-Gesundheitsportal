@@ -1,6 +1,6 @@
 import { Body, Param, Get, Put, Post, Delete, Controller, ParseIntPipe } from '@nestjs/common';
-import { AppointmentDTO } from './appointment.dto'
-import { AppointmentService } from './appointment.service'; 
+import { AppointmentDTO } from '../models/appointment.dto'
+import { AppointmentService } from '../services/appointment.service'; 
 import { ApiTags } from '@nestjs/swagger';
 
 

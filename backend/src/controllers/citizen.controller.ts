@@ -1,8 +1,8 @@
 import { Body, Param, Get, Post, Controller } from '@nestjs/common';
-import { CitizenService } from './citizen.service';
-import { CitizenDTO } from './citizen.dto' 
+import { CitizenService } from '../services/citizen.service';
+import { CitizenDTO } from '../models/citizen.dto' 
 import { ApiTags } from '@nestjs/swagger';
-import { listen } from 'src/rabbitmq/index'
+import { listen } from 'src/rabbitmq'
 
 
 @ApiTags('Citizen-Route')
@@ -18,15 +18,6 @@ export default class CitizenController {
 
     @Post("/")
     async insertCitizen(@Body() citizen: CitizenDTO) {
-
-        var s;
-
-        listen('exchange', 'service.hello', (secrect: any) => {
-            s = secrect; 
-        })
-
-        console.log(s)
-
         return this.citizenService.create(citizen);
     }
 

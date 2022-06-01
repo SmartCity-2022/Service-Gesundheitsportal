@@ -1,6 +1,6 @@
 import { Body, Param, Get, Post, Controller, Delete, ParseIntPipe } from '@nestjs/common';
-import { OrderService } from './order.service';
-import { OrderDTO } from './order.dto' 
+import { OrderService } from '../services/order.service';
+import { OrderDTO } from '../models/order.dto' 
 import { ApiTags } from '@nestjs/swagger';
 
 
@@ -16,7 +16,7 @@ export default class OrderController {
     }
 
     @Post("/")
-    async insertCitizen(@Body() order: OrderDTO) {
+    async insertOrder(@Body() order: OrderDTO) {
         var temp = await this.orderService.create_order(order);
         await this.orderService.create_inventory(temp.order_id, order);
         return temp;

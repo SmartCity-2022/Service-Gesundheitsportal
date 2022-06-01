@@ -1,6 +1,6 @@
 import { Body, Param, Get, Put, Post, Delete, Controller, ParseIntPipe } from '@nestjs/common';
-import { MedicineService } from './medicine.service';
-import { MedicineDTO } from './medicine.dto' 
+import { MedicineService } from '../services/medicine.service';
+import { MedicineDTO } from '../models/medicine.dto' 
 import { ApiTags } from '@nestjs/swagger';
 
 
