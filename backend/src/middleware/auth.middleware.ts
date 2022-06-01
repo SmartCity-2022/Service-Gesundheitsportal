@@ -7,7 +7,7 @@ import * as jwt from 'jsonwebtoken'
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
 
-    use(req: Request, res: Response, next: NextFunction) {
+    async use(req: Request, res: Response, next: NextFunction) {
     
         var access_token = req.cookies['accessToken']
         var refresh_token = req.cookies['refreshToken']
@@ -19,11 +19,12 @@ export class AuthMiddleware implements NestMiddleware {
         var result = this.decode_token(access_token);
 
         if (result.payload && !result.expired) {
-            
+            console.log(result.payload)
         } else if (result.expired) {
-            access_token = this.refresh_token(refresh_token);
+            access_token = await this.refresh_token(refresh_token);
             res.cookie("accessToken", access_token)
             var payload = this.decode_token(access_token);
+            console.log(payload)
         }
 
         next();

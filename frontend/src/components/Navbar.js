@@ -9,67 +9,53 @@ import { ThemeProvider } from '@emotion/react';
 import theme from './Theme'
 
 
-const pages = ['Alle Stellen', 'Stellensuche', 'meine Bewerbungen', 'meine Firmen'];
-const links = {
-    'Alle Stellen': "/jobs",
-    'Stellensuche': "/stellensuche",
-    'meine Bewerbungen': "/bewerbungen",
-    'meine Firmen': "/firmen"
-};
+const pages = ['Klinken','Medikamente','Bestellungen','Termine']
+const links = {'Klinken':"/kliniken",'Medikamente':"/medikamente",'Bestellungen':"/bestellungen",'Termine':"/termine"}
 
 
 const Navbar = () => {
-return (
+    return (
     <ThemeProvider theme={theme}>
         <AppBar position="static" color="primary">
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
-          
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 'bold',
-                            letterSpacing: '.0rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    > JOBPORTAL
-                    </Typography>
-            
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href=""
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    > JOBPORTAL
-                    </Typography>
+        <Container maxWidth="xl">
+        <Toolbar disableGutters>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button key={page} sx={{ my: 1, color: 'white', display: 'block' }} href={links[page]}>
-                                {page}
-                            </Button>
-                        ))}
-                    </Box>
-                    
-                </Toolbar>
-            </Container>
+            <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/"
+                sx={{
+                    mr: 5,
+                    display: 'flex',
+                    fontWeight: 'bold',
+                    fontSize: "1.5rem",
+                    letterSpacing: '.1rem',
+                    color: 'inherit',
+                    textDecoration: 'none'
+                }}
+            > Gesundheitsportal
+            </Typography>
+    
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                { pages.map(page => (
+                    <Button 
+                        key={page} 
+                        sx={{ 
+                            my: 2,
+                            px: 2,
+                            color: 'white', 
+                            display: 'block',
+                            fontSize: "1rem" 
+                        }} 
+                        href={links[page]}
+                    > {page}
+                    </Button>
+                ))}
+            </Box>
+                        
+        </Toolbar>
+        </Container>
         </AppBar>
     </ThemeProvider>
 )}

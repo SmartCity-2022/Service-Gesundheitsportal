@@ -20,7 +20,7 @@ async function bootstrap() {
     listen("Gesundheitsportal", process.env.SERVICE_WORLD, (secret: any) => {
         process.env.SECRET = secret
     })
-
+ 
 }
 
 

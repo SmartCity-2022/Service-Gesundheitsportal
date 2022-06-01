@@ -16,7 +16,7 @@ export default class OrderController {
     }
 
     @Post("/")
-    async insertCitizen(@Body() order: OrderDTO) {
+    async insertOrder(@Body() order: OrderDTO) {
         var temp = await this.orderService.create_order(order);
         await this.orderService.create_inventory(temp.order_id, order);
         return temp;
