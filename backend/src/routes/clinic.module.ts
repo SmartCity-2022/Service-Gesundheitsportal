@@ -12,5 +12,15 @@ import { ClinicService } from '../services/clinic.service';
 })
 
 
-export class ClinicModule {}
+export class ClinicModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+      consumer
+        .apply(AuthMiddleware)
+        .forRoutes(
+            { path: '/clinic', method: RequestMethod.POST },
+            { path: '/clinic', method: RequestMethod.PUT },
+            { path: '/clinic', method: RequestMethod.DELETE }
+        );
+    }
+}
 

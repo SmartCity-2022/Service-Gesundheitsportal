@@ -1,12 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import React from 'react'
-import Navbar from './components/Navbar'
+import SearchView from "./routes/SearchView";
+import HomeView from "./routes/HomeView";
 
 
 function App() {
     return (
         <Routes>
-            <Route path = "/nav" element = {<Navbar />} />
+            <Route path = "/" element = {<HomeView />} />
+            <Route path = "/suche" element = {<SearchView />} />
         </Routes>
     )
 }

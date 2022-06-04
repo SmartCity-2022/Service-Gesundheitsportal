@@ -14,8 +14,8 @@ import { AppointmentService } from '../services/appointment.service';
 
 export class AppointmentModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
-        consumer
+      consumer
         .apply(AuthMiddleware)
-        .forRoutes("/");
+        .forRoutes('/appointment');
     }
 }
