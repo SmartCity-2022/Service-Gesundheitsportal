@@ -35,4 +35,9 @@ export default class MedicineController {
         return this.medicineService.update(id, medicine);
     }
 
+    @Get("/search/:query")
+    async search(@Param("query") query: string) {
+        return this.medicineService.search(query)
+    }
+
 }

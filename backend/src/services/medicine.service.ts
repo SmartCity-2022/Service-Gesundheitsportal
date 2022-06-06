@@ -53,4 +53,15 @@ export class MedicineService {
         })
     }
 
+    async search(query: string) {
+        return this.prismaService.medicine.findMany({
+            where: {
+                OR: [
+                    { title: { contains: query } },
+                    { effect: { contains: query } }
+                ]
+            }
+        })
+    }
+
 }

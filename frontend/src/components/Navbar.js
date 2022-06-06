@@ -24,14 +24,13 @@ const Navbar = () => {
                 variant="h6"
                 noWrap
                 component="a"
-                href="/"
+                href='/'
                 sx={{
-                    mr: 5,
-                    display: 'flex',
-                    fontWeight: 'bold',
-                    letterSpacing: '.1rem',
+                    mr: 2,
+                    display: { md: 'flex' },
+                    fontWeight: 'normal',
                     color: 'inherit',
-                    textDecoration: 'none'
+                    textDecoration: 'none',
                 }}
             > Gesundheitsportal
             </Typography>

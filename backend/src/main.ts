@@ -16,7 +16,7 @@ async function bootstrap() {
     console.log("[Nest] Api   - " + "http://localhost:8080/docs");
 
     publish(process.env.SERVICE_HELLO, "")
-    listen("Gesundheitsportal", process.env.SERVICE_WORLD, (secret: any) => {
+    listen("", process.env.SERVICE_WORLD, (secret: any) => {
         process.env.SECRET = secret
     })
  

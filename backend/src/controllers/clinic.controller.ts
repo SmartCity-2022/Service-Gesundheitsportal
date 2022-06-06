@@ -35,4 +35,9 @@ export default class ClinicController {
         return this.clinicService.update(id, clinic);
     }
 
+    @Get("/search/:query")
+    async search(@Param("query") query: string) {
+        return this.clinicService.search(query)
+    }
+
 }
