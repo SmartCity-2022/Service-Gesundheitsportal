@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { AuthMiddleware } from 'src/middleware/auth.middleware';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import OrderController from '../controllers/order.controller';
 import { OrderService } from '../services/order.service';
@@ -11,4 +12,14 @@ import { OrderService } from '../services/order.service';
 })
 
 
-export class OrderModule {}
+export class OrderModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+      consumer
+        .apply(AuthMiddleware)
+        .forRoutes(
+            { path: '/order', method: RequestMethod.POST },
+            { path: '/order', method: RequestMethod.PUT },
+            { path: '/order', method: RequestMethod.DELETE }
+        );
+    }
+}

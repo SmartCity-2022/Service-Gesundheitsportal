@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { publish, listen } from './rabbitmq'
 import * as cookieParser from 'cookie-parser';
 import * as dotenv from "dotenv";
@@ -17,7 +16,7 @@ async function bootstrap() {
     console.log("[Nest] Api   - " + "http://localhost:8080/docs");
 
     publish(process.env.SERVICE_HELLO, "")
-    listen("Gesundheitsportal", process.env.SERVICE_WORLD, (secret: any) => {
+    listen("", process.env.SERVICE_WORLD, (secret: any) => {
         process.env.SECRET = secret
     })
  

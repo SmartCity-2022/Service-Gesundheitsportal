@@ -18,7 +18,7 @@ export async function listen(queueName: string, routingKey: any, callback: any) 
   
         await channel.assertExchange(process.env.EXCHANGE, "topic", { durable: true })
   
-        const queue = await channel.assertQueue(queueName, { durable: true, exclusive: true })
+        const queue = await channel.assertQueue(queueName, { durable: true, exclusive: false, autoDelete: true })
         await channel.bindQueue(queue.queue, process.env.EXCHANGE, routingKey)
   
         await channel.consume(queue.queue, (message: any) => {

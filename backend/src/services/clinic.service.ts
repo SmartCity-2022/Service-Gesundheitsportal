@@ -59,4 +59,16 @@ export class ClinicService {
         })
     }
 
+    async search(query: string) {
+        return this.prismaService.clinic.findMany({
+            where: {
+                OR: [
+                    { title: { contains: query } },
+                    { street: { contains: query } },
+                    { phone_number: { contains: query } }
+                ]
+            }
+        })
+    }
+
 }

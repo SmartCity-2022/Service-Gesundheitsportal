@@ -9,8 +9,8 @@ import { ThemeProvider } from '@emotion/react';
 import theme from './Theme'
 
 
-const pages = ['Klinken','Medikamente','Bestellungen','Termine']
-const links = {'Klinken':"/kliniken",'Medikamente':"/medikamente",'Bestellungen':"/bestellungen",'Termine':"/termine"}
+const pages = ['Klinken','Medikamente','Bestellungen','Termine','Suche']
+const links = {'Klinken':"/kliniken",'Medikamente':"/medikamente",'Bestellungen':"/bestellungen",'Termine':"/termine",'Suche':'/suche'}
 
 
 const Navbar = () => {
@@ -24,15 +24,13 @@ const Navbar = () => {
                 variant="h6"
                 noWrap
                 component="a"
-                href="/"
+                href='/'
                 sx={{
-                    mr: 5,
-                    display: 'flex',
-                    fontWeight: 'bold',
-                    fontSize: "1.5rem",
-                    letterSpacing: '.1rem',
+                    mr: 2,
+                    display: { md: 'flex' },
+                    fontWeight: 'normal',
                     color: 'inherit',
-                    textDecoration: 'none'
+                    textDecoration: 'none',
                 }}
             > Gesundheitsportal
             </Typography>
@@ -45,8 +43,7 @@ const Navbar = () => {
                             my: 2,
                             px: 2,
                             color: 'white', 
-                            display: 'block',
-                            fontSize: "1rem" 
+                            display: 'block'
                         }} 
                         href={links[page]}
                     > {page}
