@@ -50,7 +50,7 @@ const Search = (props) => {
                 onChange = { handleChange }
             />
 
-            <Button 
+            <Button
                 type = "submit"
                 variant = "contained"
                 sx = {{ height: "56px", px: "1.5rem" }}

@@ -4,14 +4,11 @@ const api = axios.create({
     baseURL: process.env.REACT_APP_API
 })
 
-export default {
-
-    search: async (type, query) => {
-        const response = await api.get("/" + type + "/search/" + query)
-        return response.data
-    }
-    
+async function search(type, query) {
+    return await api.get("/" + type + "/search/" + query).then(r => r.data)
 }
+    
 
+export default search
 
 

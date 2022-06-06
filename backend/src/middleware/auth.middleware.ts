@@ -13,7 +13,7 @@ export class AuthMiddleware implements NestMiddleware {
         var refresh_token = req.cookies['refreshToken']
         
         if (!access_token || !refresh_token) {
-            throw new UnauthorizedException("Kek");
+            throw new UnauthorizedException("Missing Token");
         }
 
         var result = this.decode_token(access_token);

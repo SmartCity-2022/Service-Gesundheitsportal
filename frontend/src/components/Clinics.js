@@ -27,7 +27,7 @@ const Clinics = (props) => {
                 <TableCell align="right">Telefon</TableCell>
                 <TableCell align="right">Öffnungszeit</TableCell>
                 <TableCell align="right">Schließzeit</TableCell>
-                <TableCell align="right">Erweiterte Ansicht</TableCell>
+                <TableCell align="right">Termine</TableCell>
             </TableRow>
         </TableHead>
         
