@@ -2,11 +2,11 @@ import * as React from 'react'
 import Navbar from '../components/Navbar'
 
 
-const BestellungView = () => {
-
+const AppointmentView = () => {
     return (
-    <Navbar />
-)}
+        <Navbar />
+    )
+}
 
 
-export default BestellungView;
+export default AppointmentView;

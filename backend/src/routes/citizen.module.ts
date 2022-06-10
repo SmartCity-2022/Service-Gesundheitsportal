@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { AuthMiddleware } from 'src/middleware/auth.middleware';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import CitizenController from '../controllers/citizen.controller';
 import { CitizenService } from '../services/citizen.service';
@@ -11,4 +12,10 @@ import { CitizenService } from '../services/citizen.service';
 })
 
 
-export class CitizenModule {}
+export class CitizenModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+      consumer
+        .apply(AuthMiddleware)
+        .forRoutes("/citizen")
+    }
+}

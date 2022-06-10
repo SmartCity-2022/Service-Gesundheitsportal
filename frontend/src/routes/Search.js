@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Medicines from '../components/Medicines'
-import Clinics from '../components/Clinics'
+import MedicineList from '../components/MedicineList'
+import ClinicList from '../components/ClinicList'
+import Searchbar from '../components/Searchbar'
 import Navbar from '../components/Navbar'
-import Search from '../components/Search'
-import api from '../service/api'
+import api from '../service/Api'
 
 
 const SearchView = () => {
@@ -22,18 +22,19 @@ const SearchView = () => {
         })
     }
 
-    function List() {
-        if (state.type === 'medicine') return <Medicines data={state.data}/>
-        if (state.type === 'clinic') return <Clinics data={state.data}/>
+    function SearchList() {
+        if (state.type === 'medicine') return <MedicineList data={state.data}/>
+        if (state.type === 'clinic') return <ClinicList data={state.data}/>
     }
 
     return (
     <>
         <Navbar />
-        <Search callback = { get_data } />
-        <List />
+        <Searchbar callback = { get_data } />
+        <SearchList />
     </>
-)}
+    )
+}
 
 
 export default SearchView;

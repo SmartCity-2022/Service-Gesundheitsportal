@@ -2,11 +2,11 @@ import * as React from 'react'
 import Navbar from '../components/Navbar'
 
 
-const MedikamentView = () => {
-
+const OrderView = () => {
     return (
-    <Navbar />
-)}
+        <Navbar />
+    )
+}
 
 
-export default MedikamentView;
+export default OrderView;
