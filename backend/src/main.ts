@@ -17,14 +17,12 @@ async function bootstrap() {
     })
 
     app.use(cookieParser())
-
     await app.listen(8080);
-    console.log("[Nest] Api   - " + "http://localhost:8080/docs")
 
-    publish(process.env.SERVICE_HELLO, "")
     listen("", process.env.SERVICE_WORLD, (secret: any) => {
         process.env.SECRET = secret
     })
+    publish(process.env.SERVICE_HELLO, "")
 
 }
 

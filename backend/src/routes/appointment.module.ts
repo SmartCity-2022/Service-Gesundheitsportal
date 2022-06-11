@@ -19,7 +19,8 @@ export class AppointmentModule implements NestModule {
         .forRoutes(
             { path: '/appointment', method: RequestMethod.POST },
             { path: '/appointment', method: RequestMethod.PUT },
-            { path: '/appointment', method: RequestMethod.DELETE }
+            { path: '/appointment', method: RequestMethod.DELETE },
+            { path: '/appointment/citizen/', method: RequestMethod.GET }
         )
     }
 }

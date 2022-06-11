@@ -8,7 +8,7 @@ import theme from './Theme'
 const ClinicList = (props) => {
     return (
     <ThemeProvider theme = { theme }>
-    <TableContainer elevation={0} sx = {{padding: 5}}>
+    <TableContainer elevation={0}>
     <Table sx={{ minWidth: 650 }} size="large">
         
         <TableHead>

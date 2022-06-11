@@ -24,7 +24,7 @@ const Searchbar = (props) => {
 
     return (
     <ThemeProvider theme = {theme}>
-        <Grid display="flex" justifyContent="center" alignItems="center" p="5%">
+        <Grid display="flex" justifyContent="center" alignItems="center">
         <form onSubmit = { handleSubmit } style = {{ display: "flex", width: "100%" }}>
         
             <TextField

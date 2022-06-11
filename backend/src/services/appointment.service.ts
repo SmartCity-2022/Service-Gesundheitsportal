@@ -53,4 +53,12 @@ export class AppointmentService {
         })
     }
 
+    async get_unique(id: string) {
+        return this.prismaService.citizen.findUnique({
+            where: {
+                email: id,
+            }
+        })
+    }
+
 }
