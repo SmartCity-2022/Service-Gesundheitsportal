@@ -1,19 +1,32 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import { ThemeProvider } from '@emotion/react';
+import * as React from 'react'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
+import Button from '@mui/material/Button'
+import { ThemeProvider } from '@emotion/react'
 import theme from './Theme'
 
 
-const pages = ['Klinken','Medikamente','Bestellungen','Termine','Suche']
-const links = {'Klinken':"/kliniken",'Medikamente':"/medikamente",'Bestellungen':"/bestellungen",'Termine':"/termine",'Suche':'/suche'}
-
-
 const Navbar = () => {
+
+    const pages = [
+        'Klinken'
+        ,'Medikamente'
+        ,'Bestellungen'
+        ,'Termine'
+        ,'Suche'
+    ]
+    
+    const links = {
+        'Klinken':"/kliniken",
+        'Medikamente':"/medikamente",
+        'Bestellungen':"/bestellungen",
+        'Termine':"/termine",
+        'Suche':'/suche'
+    }
+
     return (
     <ThemeProvider theme={theme}>
         <AppBar position="static" color="primary">
@@ -55,7 +68,8 @@ const Navbar = () => {
         </Container>
         </AppBar>
     </ThemeProvider>
-)}
+    )
+}
 
 
 export default Navbar;

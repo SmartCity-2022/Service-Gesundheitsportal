@@ -6,7 +6,13 @@ const theme = createTheme({
     palette: {
         primary: {
             main: blue[900]
-        }
+        },
+        secondary: {
+            main: "#586F7C"
+        },
+    },
+    typography: {
+        fontFamily: 'Open Sans'
     }
 })
 

@@ -4,7 +4,7 @@ import { ThemeProvider } from '@emotion/react'
 import theme from './Theme'
 
 
-const Search = (props) => {
+const Searchbar = (props) => {
 
     const [state, setState] = React.useState({
         type: "",
@@ -14,7 +14,7 @@ const Search = (props) => {
     const handleSubmit = (evt) => {
         evt.preventDefault()
         props.callback(state.type, state.search)
-    };
+    }
 
     const handleChange = (event) => {
         const name = event.target.name
@@ -24,7 +24,7 @@ const Search = (props) => {
 
     return (
     <ThemeProvider theme = {theme}>
-        <Grid display = "flex" justifyContent = "center" alignItems = "center" my = "4rem" px = "4rem">
+        <Grid display="flex" justifyContent="center" alignItems="center">
         <form onSubmit = { handleSubmit } style = {{ display: "flex", width: "100%" }}>
         
             <TextField
@@ -43,9 +43,9 @@ const Search = (props) => {
             <TextField
                 hiddenLabel
                 name = "search"
-                placeholder = 'Wonach möchten Sie suchen ?'
-                variant = "filled"
-                sx = {{ width: "100%", px: "1rem" }}
+                label = 'Wonach möchten Sie suchen ?'
+                variant = "outlined"
+                sx = {{ width: "100%", mx: "1rem" }}
                 value = { state.search }
                 onChange = { handleChange }
             />
@@ -60,7 +60,8 @@ const Search = (props) => {
         </form>
         </Grid>
     </ThemeProvider>
-)}
+    )
+}
 
 
-export default Search;
+export default Searchbar;

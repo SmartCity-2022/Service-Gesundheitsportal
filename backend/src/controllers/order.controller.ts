@@ -10,7 +10,7 @@ export default class OrderController {
     
     constructor(private readonly orderService: OrderService) {}
     
-    @Get("/:id")
+    @Get("/citizen")
     async getCitizenOrder(@Param('id', ParseIntPipe) id: number) {
        return this.orderService.get_citizen_orders(id);
     }

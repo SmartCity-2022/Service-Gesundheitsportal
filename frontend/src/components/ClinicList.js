@@ -1,33 +1,25 @@
-import * as React from 'react';
-import { 
-    Table, 
-    TableHead,
-    Paper, 
-    TableContainer, 
-    TableRow, 
-    TableCell, 
-    TableBody,
-    Button 
-} from '@mui/material';
-import { ThemeProvider } from '@emotion/react';
+import * as React from 'react'
+import { Table, TableHead, TableContainer, TableRow, TableCell, TableBody, Button } from '@mui/material'
+import { ThemeProvider } from '@emotion/react'
+import moment from 'moment'
 import theme from './Theme'
 
 
-const Clinics = (props) => {
+const ClinicList = (props) => {
     return (
     <ThemeProvider theme = { theme }>
-    <TableContainer elevation={0} sx = {{padding: 5}} component={Paper}>
+    <TableContainer elevation={0}>
     <Table sx={{ minWidth: 650 }} size="large">
         
         <TableHead>
-            <TableRow size = "20" >
+            <TableRow>
                 <TableCell>Klinik</TableCell>
                 <TableCell align="right">Straße</TableCell>
                 <TableCell align="right">Hausnummer</TableCell>
                 <TableCell align="right">Telefon</TableCell>
                 <TableCell align="right">Öffnungszeit</TableCell>
                 <TableCell align="right">Schließzeit</TableCell>
-                <TableCell align="right">Termine</TableCell>
+                <TableCell align="right">Erweiterte Ansicht</TableCell>
             </TableRow>
         </TableHead>
         
@@ -38,8 +30,8 @@ const Clinics = (props) => {
                     <TableCell align="right"> { row.street } </TableCell>
                     <TableCell align="right"> { row.house_number } </TableCell>
                     <TableCell align="right"> { row.phone_number } </TableCell>
-                    <TableCell align="right"> { row.opening_time } </TableCell>
-                    <TableCell align="right"> { row.closing_time } </TableCell>
+                    <TableCell align="right"> { moment(row.opening_time).locale("de").format("LT") } </TableCell>
+                    <TableCell align="right"> { moment(row.closing_time).locale("de").format("LT") } </TableCell>
                     <TableCell align="right"> 
                         <Button size="small" variant="contained">
                             Ansehen
@@ -52,7 +44,8 @@ const Clinics = (props) => {
     </Table>
     </TableContainer>
     </ThemeProvider>
-)}
+    )
+}
 
 
-export default Clinics;
+export default ClinicList;
