@@ -15,13 +15,13 @@ const ClinicView = () => {
     }
 
     return (
-    <>
-        <Navbar />
-        <Body 
-            title="Klinken"
-            content={<ClinicList data={data}/>}
-        />
-    </>
+        <>
+            <Navbar />
+            <Body 
+                title="Klinken"
+                content={<ClinicList data={data}/>}
+            />
+        </>
     )
 }
 

@@ -32,7 +32,7 @@ async function clinic_appointments(clinic_id) {
 }
 
 
-const Api = {
+const api = {
     check_auth,
     search,
     clinics,
@@ -41,7 +41,7 @@ const Api = {
     clinic_appointments
 }
 
-export default Api
+export default api
 
 
 
