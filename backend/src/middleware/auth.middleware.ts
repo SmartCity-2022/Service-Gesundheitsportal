@@ -20,15 +20,16 @@ export class AuthMiddleware implements NestMiddleware {
         }
 
         var result = this.decode_token(access_token);
-        this.check_citizen(result.payload)
 
         if (result.payload && !result.expired) {
             res.locals.email = result.payload
+            this.check_citizen(result.payload)
         } else if (result.expired) {
             access_token = await this.refresh_token(refresh_token);
             res.cookie("accessToken", access_token)
             result = this.decode_token(access_token);
             res.locals.email = result.payload
+            this.check_citizen(result.payload)
         }
 
         next();
