@@ -16,7 +16,7 @@ export class AuthMiddleware implements NestMiddleware {
         var refresh_token = req.cookies['refreshToken']
         
         if (!access_token || !refresh_token) {
-            throw new UnauthorizedException("Missing Token");
+            throw new UnauthorizedException("Missing Token")
         }
 
         var result = this.decode_token(access_token);
@@ -24,13 +24,7 @@ export class AuthMiddleware implements NestMiddleware {
         if (result.payload && !result.expired) {
             res.locals.email = result.payload
             this.check_citizen(result.payload)
-        } else if (result.expired) {
-            access_token = await this.refresh_token(refresh_token);
-            res.cookie("accessToken", access_token)
-            result = this.decode_token(access_token);
-            res.locals.email = result.payload
-            this.check_citizen(result.payload)
-        }
+        } 
 
         next();
     }
@@ -39,8 +33,14 @@ export class AuthMiddleware implements NestMiddleware {
         try {
             const values = jwt.verify(token, process.env.SECRET);
             return { payload: values, expired: false }
-        } catch(error) {
-            return { payload: null, expired: true }
+        } 
+        catch(error) {
+            if(error instanceof jwt.TokenExpiredError) {
+                throw new UnauthorizedException(error)
+            }
+            else {
+                throw new UnauthorizedException(error)
+            }
         }
     }
 
@@ -50,17 +50,9 @@ export class AuthMiddleware implements NestMiddleware {
     }
 
     async check_citizen(payload: any) {
-        var citizen = await this.prismaService.citizen.findUnique({
-            where: {
-                email: payload.email
-            }
-        })
-        if (citizen == null) {
-            await this.prismaService.citizen.create({
-                data: {
-                    email: payload.email
-                }
-            })
+        var cit = await this.prismaService.citizen.findUnique({where:{email: payload.email}})
+        if (cit == null) {
+            await this.prismaService.citizen.create({data:{email:payload.email}})
         }
     }
 
