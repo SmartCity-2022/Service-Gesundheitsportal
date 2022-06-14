@@ -8,7 +8,7 @@ import api from '../service/Api'
 const AppointmentView = () => {
 
     const [data, setData] = React.useState([])
-    React.useEffect(() => { fetch_appointment() })
+    React.useEffect(() => { fetch_appointment() }, [])
 
     const fetch_appointment = async () => {
         setData(await api.citizen_appointments())
@@ -18,8 +18,8 @@ const AppointmentView = () => {
         <>
             <Navbar />
             <Body 
-                title="Termine"
-                conten={<AppointmentCitizen data={data}/>}
+                title={ data.length === 0 ? "Keine Termine vorhanden" : "Termine" }
+                content={<AppointmentCitizen data={data}/>}
             />
         </>
     )

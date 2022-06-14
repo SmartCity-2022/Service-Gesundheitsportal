@@ -51,4 +51,12 @@ export class OrderService {
         })
     }
 
+    async get_unique(id: string) {
+        return this.prismaService.citizen.findUnique({
+            where: {
+                email: id,
+            }
+        })
+    }
+
 }

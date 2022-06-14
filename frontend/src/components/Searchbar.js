@@ -42,6 +42,7 @@ const Searchbar = (props) => {
 
             <TextField
                 hiddenLabel
+                required
                 name = "search"
                 label = 'Wonach möchten Sie suchen ?'
                 variant = "outlined"

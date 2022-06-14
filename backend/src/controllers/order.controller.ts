@@ -1,4 +1,4 @@
-import { Body, Param, Get, Post, Controller, Delete, ParseIntPipe } from '@nestjs/common';
+import { Body, Param, Get, Post, Controller, Delete, ParseIntPipe, Req } from '@nestjs/common';
 import { OrderService } from '../services/order.service';
 import { OrderDTO } from '../models/order.dto' 
 import { ApiTags } from '@nestjs/swagger';
@@ -11,8 +11,9 @@ export default class OrderController {
     constructor(private readonly orderService: OrderService) {}
     
     @Get("/citizen")
-    async getCitizenOrder(@Param('id', ParseIntPipe) id: number) {
-       return this.orderService.get_citizen_orders(id);
+    async getCitizenOrder(@Req() req: any) {
+        var citizen = await this.orderService.get_unique(req.body);
+        return this.orderService.get_citizen_orders(citizen.citizen_id);
     }
 
     @Post("/")
