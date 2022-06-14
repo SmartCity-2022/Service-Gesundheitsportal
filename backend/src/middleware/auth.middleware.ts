@@ -22,17 +22,19 @@ export class AuthMiddleware implements NestMiddleware {
         var result = this.decode_token(access_token);
 
         if (result.payload && !result.expired) {
-            res.locals.email = result.payload
-            this.check_citizen(result.payload)
-        } 
+            req.body = result.payload
+            await this.check_citizen(result.payload)
+            next()
+        } else {
+            throw new UnauthorizedException("Authorization Failed")
+        }
 
-        next();
     }
 
-    decode_token(token: string) {
+    decode_token(token: any) {
         try {
-            const values = jwt.verify(token, process.env.SECRET);
-            return { payload: values, expired: false }
+            const values = jwt.verify(token, process.env.SECRET) as JSON
+            return { payload: (<any> values).email, expired: false }
         } 
         catch(error) {
             if(error instanceof jwt.TokenExpiredError) {
@@ -49,10 +51,10 @@ export class AuthMiddleware implements NestMiddleware {
         .then(response => { return response.data.accessToken })
     }
 
-    async check_citizen(payload: any) {
-        var cit = await this.prismaService.citizen.findUnique({where:{email: payload.email}})
+    async check_citizen(email: any) {
+        var cit = await this.prismaService.citizen.findUnique({where:{email: email}})
         if (cit == null) {
-            await this.prismaService.citizen.create({data:{email:payload.email}})
+            await this.prismaService.citizen.create({data:{email: email}})
         }
     }
 

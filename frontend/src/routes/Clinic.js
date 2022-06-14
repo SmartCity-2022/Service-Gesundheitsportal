@@ -18,7 +18,7 @@ const ClinicView = () => {
         <>
             <Navbar />
             <Body 
-                title="Klinken"
+                title={ data.length === 0 ? "Keine Kliniken vorhanden" : "Kliniken" }
                 content={<ClinicList data={data}/>}
             />
         </>

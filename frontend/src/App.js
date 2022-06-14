@@ -16,7 +16,7 @@ function App() {
             <Route path = "/kliniken" element = {<ClinicView />} />
             <Route path = "/medikamente" element = {<MedicineView />} />
             <Route path = "/bestellungen" element = {<Auth page = {<OrderView />} />} />
-            <Route path = "/termine" element = {<Auth page = {<AppointmentView />} />} />
+            <Route path = "/termine" element = {<Auth page = {<AppointmentView />} />}/>
             <Route path = "/suche" element = {<SearchView />} />
         </Routes>
     )

@@ -13,7 +13,7 @@ const AppointmentCitizen = (props) => {
         <TableHead>
             <TableRow>
                 <TableCell>Termin Nr</TableCell>
-                <TableCell align="right">Datum</TableCell>
+                <TableCell>Datum</TableCell>
                 <TableCell align="right">Klinik ansehen</TableCell>
                 <TableCell align="right">Termin entfernen</TableCell>
             </TableRow>
@@ -23,7 +23,7 @@ const AppointmentCitizen = (props) => {
             { Array.isArray(props.data) && props.data.map((row) => (
                 <TableRow key={row.appointment_id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell> { row.appointment_id } </TableCell>
-                    <TableCell align="right"> { row.date } </TableCell>
+                    <TableCell> { row.date } </TableCell>
                     <TableCell align="right"> 
                         <Button size="small" variant="contained">
                             Ansehen

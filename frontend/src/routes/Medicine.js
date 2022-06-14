@@ -18,7 +18,7 @@ const MedicineView = () => {
         <>
             <Navbar />
             <Body 
-                title="Medikamente"
+                title={ data.length === 0 ? "Keine Medikamente vorhanden" : "Medikamente" }
                 content = { <MedicineList data={data}/> }    
             />
         </> 

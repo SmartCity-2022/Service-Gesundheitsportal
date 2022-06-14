@@ -27,6 +27,10 @@ async function citizen_appointments() {
     return await rest.get("/appointment/citizen").then(r => r.data)
 }
 
+async function citizen_orders() {
+    return await rest.get("/order/citizen").then(r => r.data)
+}
+
 async function clinic_appointments(clinic_id) {
     return await rest.get("/appointment/clinic/" + clinic_id).then(r => r.data)
 }
@@ -38,6 +42,7 @@ const api = {
     clinics,
     medicines,
     citizen_appointments,
+    citizen_orders,
     clinic_appointments
 }
 
