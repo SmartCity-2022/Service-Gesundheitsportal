@@ -31,8 +31,31 @@ async function citizen_orders() {
     return await rest.get("/order/citizen").then(r => r.data)
 }
 
+async function clinic(clinic_id) {
+    return await rest.get("/clinic/" + clinic_id).then(r => r.data)
+}
+
 async function clinic_appointments(clinic_id) {
     return await rest.get("/appointment/clinic/" + clinic_id).then(r => r.data)
+}
+
+async function add_appointment(clinic_id) {
+    return await rest.put("/appointment/" + clinic_id)
+}
+
+async function delete_appointment(clinic_id) {
+    return await rest.delete("/appointment/" + clinic_id)
+}
+
+async function create_order(items) {
+    await rest.post("/order/", {
+        "order_date": new Date,
+        "medicines": items
+    })
+}
+
+async function order(order_id) {
+    return await rest.get("/order/citizen/" + order_id).then(r => r.data);
 }
 
 
@@ -41,9 +64,14 @@ const api = {
     search,
     clinics,
     medicines,
+    clinic,
     citizen_appointments,
     citizen_orders,
-    clinic_appointments
+    clinic_appointments,
+    add_appointment,
+    delete_appointment,
+    create_order,
+    order
 }
 
 export default api

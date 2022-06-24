@@ -17,7 +17,7 @@ export default class AppointmentController {
 
     @Get("/citizen")
     async getCitizenAppointments(@Req() req: any) {
-        var citizen = await this.appointmentService.get_unique(req.body);
+        var citizen = await this.appointmentService.get_unique(req.body.email);
         return this.appointmentService.get_citizen_appointments(citizen.citizen_id);
     }
 
@@ -31,12 +31,10 @@ export default class AppointmentController {
         return this.appointmentService.delete_appointment(id);
     }
 
-    @Put("/:id/:citizen")
-    async createCitizenAppointment(
-        @Param('id', ParseIntPipe) id: number,
-        @Param('citizen', ParseIntPipe) citizen: number
-    ) {
-        return this.appointmentService.update_appointment(id, citizen);
+    @Put("/:id")
+    async createCitizenAppointment(@Req() req: any, @Param('id', ParseIntPipe) id: number) {
+        var citizen = await this.appointmentService.get_unique(req.body.email);
+        return this.appointmentService.update_appointment(id, citizen.citizen_id);
     }
 
 }

@@ -19,10 +19,10 @@ export class AuthMiddleware implements NestMiddleware {
             throw new UnauthorizedException("Missing Token")
         }
 
-        var result = this.decode_token(access_token);
+        var result = this.decode_token(res, access_token, refresh_token);
 
         if (result.payload && !result.expired) {
-            req.body = result.payload
+            req.body.email = result.payload
             await this.check_citizen(result.payload)
             next()
         } else {
@@ -31,16 +31,18 @@ export class AuthMiddleware implements NestMiddleware {
 
     }
 
-    decode_token(token: any) {
+    decode_token(res: any, access: any, refresh: any) {
         try {
-            const values = jwt.verify(token, process.env.SECRET) as JSON
+            const values = jwt.verify(access, process.env.SECRET)
             return { payload: (<any> values).email, expired: false }
         } 
         catch(error) {
             if(error instanceof jwt.TokenExpiredError) {
-                throw new UnauthorizedException(error)
-            }
-            else {
+                var new_token = this.refresh_token(refresh)
+                console.log("Refreshing: " + new_token)
+                res.setCookie("accessToken", new_token)
+                this.decode_token(res, new_token, refresh)
+            } else {
                 throw new UnauthorizedException(error)
             }
         }
@@ -48,7 +50,7 @@ export class AuthMiddleware implements NestMiddleware {
 
     async refresh_token(token: string) {
         return await axios.post(process.env.MAINHUB_URL + "/api/token", { "token": token })
-        .then(response => { return response.data.accessToken })
+        .then(r => r.data.accessToken)
     }
 
     async check_citizen(email: any) {

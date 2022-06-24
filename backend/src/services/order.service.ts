@@ -8,21 +8,21 @@ export class OrderService {
 
     constructor(private readonly prismaService: PrismaService) {}
 
-    create_order(order: OrderDTO) {
+    create_order(id: number, order: OrderDTO) {
         return this.prismaService.order.create({
             data: {
                 order_date: order.order_date,
-                citizen_id: order.citizen_id,
+                citizen_id: id,
             }
         }) 
     }
 
     async create_inventory(id: number, order: OrderDTO) {
-        for (let i = 0; i < order.medicine_id.length; i++) {
+        for (let index in order.medicines) {
             await this.prismaService.inventory.create({
                 data: {
                     order_id: id,
-                    medicine_id: order.medicine_id[i]
+                    medicine_id: (<any> order.medicines)[index].medicine_id
                 }
             })
         }
@@ -33,9 +33,28 @@ export class OrderService {
             where: {
                 citizen_id: id
             },
-            include: {
+            select: {
+                order_date: true,
+                order_id: true,
                 inventory: {
-                    include: {
+                    select: {
+                        medicine: true
+                    }
+                }
+            }
+        })
+    }
+
+    get_order(id: number) {
+        return this.prismaService.order.findUnique({
+            where: {
+                order_id: id
+            },
+            select: {
+                order_date: true,
+                order_id: true,
+                inventory: {
+                    select: {
                         medicine: true
                     }
                 }

@@ -9,6 +9,7 @@ const AppointmentView = () => {
 
     const [data, setData] = React.useState([])
     React.useEffect(() => { fetch_appointment() }, [])
+    const handleChange = () => { fetch_appointment() }
 
     const fetch_appointment = async () => {
         setData(await api.citizen_appointments())
@@ -19,7 +20,7 @@ const AppointmentView = () => {
             <Navbar />
             <Body 
                 title={ data.length === 0 ? "Keine Termine vorhanden" : "Termine" }
-                content={<AppointmentCitizen data={data}/>}
+                content={ data.length > 0 ? <AppointmentCitizen data={data} callback={handleChange}/> : [] }
             />
         </>
     )

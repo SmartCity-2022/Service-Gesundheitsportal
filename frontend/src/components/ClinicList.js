@@ -33,7 +33,7 @@ const ClinicList = (props) => {
                     <TableCell align="right"> { moment(row.opening_time).locale("de").format("LT") } </TableCell>
                     <TableCell align="right"> { moment(row.closing_time).locale("de").format("LT") } </TableCell>
                     <TableCell align="right"> 
-                        <Button size="small" variant="contained">
+                        <Button size="medium" variant="contained" href={"kliniken/" + row.clinic_id}>
                             Ansehen
                         </Button>
                     </TableCell>

@@ -1,24 +1,26 @@
 import * as React from 'react';
 import { Table, TableHead, TableContainer, TableRow, TableCell, TableBody, Button } from '@mui/material';
 import { ThemeProvider } from '@emotion/react'
-import Alert from '@mui/material/Alert'
 import CheckIcon from '@mui/icons-material/Check'
 import DoDisturbIcon from '@mui/icons-material/DoDisturb'
 import theme from './Theme'
+import api from '../service/Api'
 
 
-const MedicineList = (props) => {
+const Cart = (props) => {
 
-    const [show, setShow] = React.useState(false)
-   
     const handeClick = (item) => {
         var items = JSON.parse(localStorage.getItem('items')) || []
-        items.push(item)
+        items.splice(props.data.indexOf(item), 1)
         localStorage.setItem('items', JSON.stringify(items))
-        setShow(true)
-        setTimeout(() => {
-            setShow(false)
-        }, 3000)
+        props.callback()
+    }
+
+    const handleSubmit = async () => {
+        var items = JSON.parse(localStorage.getItem('items'))
+        await api.create_order(items)
+        localStorage.setItem('items', JSON.stringify([]))
+        props.callback()
     }
 
     return (
@@ -32,13 +34,13 @@ const MedicineList = (props) => {
                 <TableCell align="right">Inhalt in (g/ml)</TableCell>
                 <TableCell align="right">Verschreibungspflichtig</TableCell>
                 <TableCell align="right">Beschreibung</TableCell>
-                <TableCell align="right">Warenkorb</TableCell>
+                <TableCell align="right">Warenkorb entfernen</TableCell>
             </TableRow>
         </TableHead>
         
         <TableBody>
             { Array.isArray(props.data) && props.data.map((row) => (
-                <TableRow key={row.medicine_id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableRow key={props.data.indexOf(row)} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell> { row.title } </TableCell>
                     <TableCell align="right"> { row.content } </TableCell>
                     <TableCell align="right"> { row.pharmacy_duty === true ? <CheckIcon/> : <DoDisturbIcon/> } </TableCell>
@@ -46,19 +48,19 @@ const MedicineList = (props) => {
                     <TableCell align="right"> 
                         <Button size="medium" variant="contained" 
                             onClick={ function() { handeClick(row) } }
-                        > Hinzufügen
+                        > Entfernen
                         </Button>
                     </TableCell>
                 </TableRow>
             ))}
         </TableBody>
-
+            
     </Table>
     </TableContainer>
-    { show ? <Alert severity="success">Medikament wurde zum Warenkorb hinzugefügt</Alert> : <></> }
+    <Button size="large" variant="contained" onClick = { handleSubmit }>Bestellung abschließen</Button>
     </ThemeProvider>
     )
 }
 
 
-export default MedicineList;
+export default Cart;
