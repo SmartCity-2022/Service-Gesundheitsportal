@@ -19,7 +19,11 @@ export class AppointmentService {
     get_clinic_appointments(id: number) {
         return this.prismaService.appointment.findMany({
             where: {
-                clinic_id: id 
+                AND: {
+                    clinic_id: id,
+                    citizen_id: null
+                }
+                
             }
         })
     }

@@ -3,8 +3,11 @@
 Microservice Gesundheitsportal
 
 ## Installation
-* `npm install`
-* `cd src -> npx prisma db push`
+* Backend/Frontend: `npm install`
+* Backend: `cd src` `npx prisma db push`
+
+## Starting
+* Backend/Frontend: `npm run start`
 
 ## Umgebungsvariablen
 
