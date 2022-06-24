@@ -39,6 +39,9 @@ export class AuthMiddleware implements NestMiddleware {
         catch(error) {
             var new_token = await this.refresh_token(refresh)
             const values = jwt.verify(new_token, process.env.SECRET)
+            res.cookie("accessToken", new_token, {
+                domain: ".smartcity.w-mi.de",
+            })
             return { payload: (<any> values).email, expired: false }
         }
     }

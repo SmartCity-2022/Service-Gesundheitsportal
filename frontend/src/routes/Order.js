@@ -13,7 +13,8 @@ const OrderView = () => {
     React.useEffect(() => { fetch_appointment() }, [])
 
     const fetch_appointment = async () => {
-        setItems(JSON.parse(localStorage.getItem('items')))
+        var items = JSON.parse(localStorage.getItem('items')) || []
+        setItems(items)
         setData(await api.citizen_orders())
     }
 
