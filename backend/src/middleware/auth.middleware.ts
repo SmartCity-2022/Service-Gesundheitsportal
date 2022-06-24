@@ -19,7 +19,7 @@ export class AuthMiddleware implements NestMiddleware {
             throw new UnauthorizedException("Missing Token")
         }
 
-        var result = this.decode_token(res, access_token, refresh_token);
+        var result = await this.decode_token(res, access_token, refresh_token);
 
         if (result.payload && !result.expired) {
             req.body.email = result.payload
@@ -31,20 +31,15 @@ export class AuthMiddleware implements NestMiddleware {
 
     }
 
-    decode_token(res: any, access: any, refresh: any) {
+    async decode_token(res: any, access: any, refresh: any) {
         try {
             const values = jwt.verify(access, process.env.SECRET)
             return { payload: (<any> values).email, expired: false }
         } 
         catch(error) {
-            if(error instanceof jwt.TokenExpiredError) {
-                var new_token = this.refresh_token(refresh)
-                console.log("Refreshing: " + new_token)
-                res.setCookie("accessToken", new_token)
-                this.decode_token(res, new_token, refresh)
-            } else {
-                throw new UnauthorizedException(error)
-            }
+            var new_token = await this.refresh_token(refresh)
+            const values = jwt.verify(new_token, process.env.SECRET)
+            return { payload: (<any> values).email, expired: false }
         }
     }
 
